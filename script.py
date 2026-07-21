@@ -38,7 +38,7 @@ cleaned_mask = remove_small_objects(binary_mask, min_size=min_size_pixels)
 final_mask = cleaned_mask
 labeled_mask = label(final_mask)
 
-# --- WATERSHED SPLITTING (OPTIMIZED) ---
+#WATERSHED SPLITTING
 
 distance = ndi.distance_transform_edt(final_mask)
 smoothed_distance = ndi.gaussian_filter(distance, sigma=3)
