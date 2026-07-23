@@ -2,6 +2,8 @@ import h5py
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import matplotlib
+import matplotlib.pyplot as plt
 from scipy import ndimage as ndi
 from skimage.feature import peak_local_max
 from skimage.segmentation import watershed
@@ -12,10 +14,10 @@ from skimage.morphology import remove_small_objects
 
 #1. PARAMETERS
 
-h5_path = r"C:\Users\franc\Desktop\ExM_analyza\Obrazek2_Probabilities.h5"  #CHANGE - path to the Ilastik .h5 file with probabilities
+h5_path = r"//home/martinfranc/Stažené/Magnify/2D/MAGNIFY_2_Image_G001_ch01_fixed_Probabilities.h5"  #CHANGE - path to the Ilastik .h5 file with probabilities
 output_csv = "Output.csv"
 
-pixel_size_nm = 20.0  #CHANGE - Size of one pixel in nanometers
+pixel_size_nm = 58.0  #CHANGE - Size of one pixel in nanometers
 expansion_factor = 4.0  #CHANGE - Expansion factor
 probability_threshold = 0.7  #CHANGE - Threshold probability
 min_size_pixels = 20  #CHANGE - Removes noise smaller than X pixels
@@ -45,7 +47,7 @@ smoothed_distance = ndi.gaussian_filter(distance, sigma=3)
 
 coords = peak_local_max(
     smoothed_distance, 
-    min_distance=20,  # Pokud pořád seká moc, zvedni na 15 nebo 20
+    min_distance=20,  #Pokud pořád seká moc
     labels=final_mask, 
     footprint=np.ones((3, 3))
 )
@@ -95,4 +97,5 @@ ax[2].set_title(f"Segmented objects (Total: {len(df)})")
 ax[2].axis("off")
 
 plt.tight_layout()
-plt.show()
+plt.savefig('/home/martinfranc/Stažené/Magnify/2D/vysledek.png', dpi=300, bbox_inches='tight')
+print("Obrázek uložen jako vysledek.png v /home/martinfranc/Stažené/Magnify/2D/")
